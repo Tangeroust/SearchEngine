@@ -1,4 +1,4 @@
-﻿#include "ConverterJSON.h"
+#include "ConverterJSON.h"
 
 #include "iostream"
 

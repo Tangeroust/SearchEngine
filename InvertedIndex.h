@@ -13,7 +13,7 @@ struct Entry
 	size_t docId;
 	size_t count;
 
-	//Для тестовых сценариев
+	//РґР»СЏ С‚РµСЃС‚РѕРІС‹С… СЃС†РµРЅР°СЂРёРµРІ
 	bool operator == (const Entry& other) const
 	{
 		return (docId == other.docId &&
@@ -27,22 +27,22 @@ public:
 	InvertedIndex() = default;
 	InvertedIndex(const InvertedIndex& index) : docs(index.docs), freqDictionary(index.freqDictionary) {};
 	/**
-	* Обновить или заполнить базу документов, по которой будем совершать
-	поиск*
-	@param texts_input содержимое документов
+	* РѕР±РЅРѕРІРёС‚СЊ РёР»Рё Р·Р°РїРѕР»РЅРёС‚СЊ Р±Р°Р·Сѓ РґРѕРєСѓРјРµРЅС‚РѕРІ, РїРѕ РєРѕС‚РѕСЂРѕР№ Р±СѓРґРµРј СЃРѕРІРµСЂС€Р°С‚СЊ
+	РїРѕРёСЃРє*
+	@param texts_input СЃРѕРґРµСЂР¶РёРјРѕРµ РґРѕРєСѓРјРµРЅС‚РѕРІ
 	*/
 	void updateDocumentBase(const vector <string>& inputDocs);
 	/**
-	* Метод определяет количество вхождений слова word в загруженной базе
-	документов
-	* @param word слово, частоту вхождений которого необходимо определить
-	* @return возвращает подготовленный список с частотой слов
+	* РјРµС‚РѕРґ РѕРїСЂРµРґРµР»СЏРµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ РІС…РѕР¶РґРµРЅРёР№ СЃР»РѕРІР° word РІ Р·Р°РіСЂСѓР¶РµРЅРЅРѕР№ Р±Р°Р·Рµ
+	РґРѕРєСѓРјРµРЅС‚РѕРІ
+	* @param word СЃР»РѕРІРѕ, С‡Р°СЃС‚РѕС‚Сѓ РІС…РѕР¶РґРµРЅРёР№ РєРѕС‚РѕСЂРѕРіРѕ РЅРµРѕР±С…РѕРґРёРјРѕ РѕРїСЂРµРґРµР»РёС‚СЊ
+	* @return РІРѕР·РІСЂР°С‰Р°РµС‚ РїРѕРґРіРѕС‚РѕРІР»РµРЅРЅС‹Р№ СЃРїРёСЃРѕРє СЃ С‡Р°СЃС‚РѕС‚РѕР№ СЃР»РѕРІ
 	*/
 	vector <Entry> getWordCount(const string& word) const;
 
 private:
-	vector <string> docs; // список содержимого документов
-	map <string, vector <Entry> > freqDictionary; // частотный словарь
+	vector <string> docs; // СЃРїРёСЃРѕРє СЃРѕРґРµСЂР¶РёРјРѕРіРѕ РґРѕРєСѓРјРµРЅС‚РѕРІ
+	map <string, vector <Entry> > freqDictionary; // С‡Р°СЃС‚РѕС‚РЅС‹Р№ СЃР»РѕРІР°СЂСЊ
 	mutex blockDictionary;
 
 private:
