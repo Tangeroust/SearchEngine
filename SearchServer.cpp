@@ -93,7 +93,7 @@ vector <RelativeIndex> SearchServer::getRelativeIndex(const list <string>& uniqu
 	unordered_map <size_t, size_t> absoluteRelevance;
 	list <string> ::const_iterator wordIter = uniqueWords.cbegin();
 
-	auto& freqIt = freqOccurrence.find(*wordIter);
+	auto freqIt = freqOccurrence.find(*wordIter);
 	if (freqIt != freqOccurrence.cend())
 	{
 		for (const auto& entry : freqIt->second.second)
