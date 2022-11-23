@@ -13,7 +13,7 @@ using std::istreambuf_iterator;
 
 string ConverterJSON::getNameProgramm() const
 {
-	ifstream config("config.json", ios_base::in);
+	ifstream config("config.json");
 
 	try
 	{
@@ -51,7 +51,7 @@ vector <string> ConverterJSON::getTextDocuments() const
 {
 	vector <string> textFiles;
 
-	ifstream config("config.json", ios_base::in);
+	ifstream config("config.json");
 	
 	try
 	{
@@ -81,7 +81,7 @@ vector <string> ConverterJSON::getTextDocuments() const
 
 	for(string filePath : doksJson["files"])
 	{
-		ifstream file(filePath, ios_base::in);
+		ifstream file(filePath);
 
 		if (!file)
 		{
@@ -101,7 +101,7 @@ vector <string> ConverterJSON::getTextDocuments() const
 
 int ConverterJSON::getResponsesLimit() const
 {
-	ifstream config("config.json", ios_base::in);
+	ifstream config("config.json");
 
 	try 
 	{
@@ -144,7 +144,7 @@ vector <string> ConverterJSON::getRequests() const
 {
 	vector <string> queryList;
 
-	ifstream request("requests.json", ios_base::in);
+	ifstream request("requests.json");
 
 	if (!request)
 	{
@@ -188,7 +188,7 @@ void ConverterJSON::putAnswers(vector <vector <RelativeIndex> > answers)
 		}
 	}
 
-	ofstream fileAnsw("answers.json", ios_base::out, ios::trunc);
+	ofstream fileAnsw("answers.json", ios::trunc);
 	fileAnsw << answerJson << endl;
 	fileAnsw.close();
 }
