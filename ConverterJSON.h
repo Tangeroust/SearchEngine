@@ -34,5 +34,5 @@ public:
 	/**
 	* Положить в файл answers.json результаты поисковых запросов
 	*/
-	void putAnswers(vector <vector <RelativeIndex> > answers);
+	bool putAnswers(vector <vector <RelativeIndex> > answers);
 };

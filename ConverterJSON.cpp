@@ -8,7 +8,7 @@
 
 using std::ifstream;			using std::to_string;	using std::endl;
 using std::ofstream;			using std::ios_base;	using std::ios;
-using json = nlohmann::json;	using std::cout;		using std::exit;
+using json = nlohmann::json;	using std::cout;
 using std::istreambuf_iterator; 
 
 string ConverterJSON::getNameProgramm() const
@@ -23,7 +23,7 @@ string ConverterJSON::getNameProgramm() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(1);
+		return string();
 	}
 
 	json doksJson = json::parse(config);
@@ -41,7 +41,7 @@ string ConverterJSON::getNameProgramm() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(2);
+		return string();
 	}
 
 	return doksJson["config"]["name"];
@@ -61,7 +61,7 @@ vector <string> ConverterJSON::getTextDocuments() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(1);
+		return textFiles;
 	}
 
 	json doksJson = json::parse(config);
@@ -76,7 +76,7 @@ vector <string> ConverterJSON::getTextDocuments() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(2);
+		return textFiles;
 	}
 
 	for(string filePath : doksJson["files"])
@@ -111,7 +111,7 @@ int ConverterJSON::getResponsesLimit() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(1);
+		return -1;
 	}
 
 	json optionsJson = json::parse(config);
@@ -134,7 +134,7 @@ int ConverterJSON::getResponsesLimit() const
 	catch (const ios_base::failure& error)
 	{
 		cout << "\n" << error.what();
-		exit(2);
+		return -1;
 	}
 
 	return maxResponses;
@@ -166,9 +166,13 @@ vector <string> ConverterJSON::getRequests() const
 	return queryList;
 }
 
-void ConverterJSON::putAnswers(vector <vector <RelativeIndex> > answers)
+bool ConverterJSON::putAnswers(vector <vector <RelativeIndex> > answers)
 {
 	int maxResponses = getResponsesLimit();
+
+	if (maxResponses < 1)
+		return false;
+
 	json answerJson;
 
 	for (int index = 0; index < answers.size(); index++)
@@ -191,4 +195,6 @@ void ConverterJSON::putAnswers(vector <vector <RelativeIndex> > answers)
 	ofstream fileAnsw("answers.json", ios::trunc);
 	fileAnsw << answerJson << endl;
 	fileAnsw.close();
+
+	return true;
 }
