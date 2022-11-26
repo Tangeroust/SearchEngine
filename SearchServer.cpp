@@ -11,7 +11,7 @@ vector < vector <RelativeIndex> > SearchServer::search(const vector <string>& qu
 {
 	vector < vector <RelativeIndex> > relativeIndex;
 
-	for (auto& request : queriesInput)
+	for (auto request : queriesInput)
 	{
 		list <string> uniqueWords;
 		freqOccurrence.clear();
@@ -127,7 +127,7 @@ vector <RelativeIndex> SearchServer::getRelativeIndex(const list <string>& uniqu
 				deletedDocs.push_back(freq.first);
 		}
 
-		for(auto& id : deletedDocs)
+		for(auto id : deletedDocs)
 			absoluteRelevance.erase(id);
 	}
 
