@@ -8,10 +8,17 @@ void InvertedIndex::updateDocumentBase(const vector <string>& inputDocs)
 {
 	docs = inputDocs;
 
+	vector<thread*> threadsList;
 	for (int docId = 0; docId < docs.size(); ++docId)
 	{
-		thread updateDock(&InvertedIndex::indexing, this, docs[docId], docId);
-		updateDock.join();
+		thread* newThread = new thread(&InvertedIndex::indexing, this, docs[docId], docId);
+		threadsList.emplace_back(newThread);
+	}
+
+	for (int id = 0; id < threadsList.size(); ++id)
+	{
+		threadsList[id]->join();
+		delete threadsList[id];
 	}
 }
 
@@ -23,7 +30,7 @@ void InvertedIndex::indexing(const string& docText, size_t id)
 
 	map <string, size_t> globalPosWord;
 
-	auto& listEntry = [this, &globalPosWord, &start, &len, docText, id]()
+	auto listEntry = [this, &globalPosWord, &start, &len, docText, id]()
 	{
 		string word(docText, start, len);
 
