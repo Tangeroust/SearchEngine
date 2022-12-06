@@ -41,10 +41,9 @@ int main()
         }
 
         invertIndex.updateDocumentBase(textDocuments);
-        if (converterJson.putAnswers(searchServer.search(request)))
+        if (!converterJson.putAnswers(searchServer.search(request)))
         {
             cout << "\nIncorrect answer limit parameter in config file.";
-            continue;
         }
 
         cout << "\nSearch is over!" 
